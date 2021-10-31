@@ -109,7 +109,6 @@ function main() {
 }
 
 function mouseClicked() {
-	//if in mouse in window
 	if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0) {
 		if (positions.length == 4) {
 			lines.push(
