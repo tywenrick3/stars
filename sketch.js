@@ -88,8 +88,8 @@ function start() {
 		height / 2 + 50
 	);
 	textFont('input-serif, serif');
-	textSize(14);
-	text('Press Enter', width / 2, height / 2 + 250);
+	textSize(18);
+	text('press enter', width / 2, height / 2 + 250);
 }
 
 function main() {
@@ -98,7 +98,7 @@ function main() {
 	fill('red');
 	textFont('input-serif, serif');
 	textSize(14);
-	text('Press Esc to Reset', width / 2, height / 2 + 290);
+	text('press esc to reset', width / 2, height / 2 + 290);
 	for (let i = 0; i < stars.length; i++) {
 		stars[i].display();
 		stars[i].move();
