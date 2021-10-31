@@ -1,0 +1,24 @@
+html,
+body {
+	margin: 30;
+	padding: 0;
+	background-color: rgb(24, 24, 24);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+canvas {
+	display: block;
+}
+
+.button {
+	transition-duration: 0.4s;
+	background-color: black;
+	color: white;
+}
+
+.button:hover {
+	background-color: white;
+	color: black;
+}
