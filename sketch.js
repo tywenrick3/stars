@@ -102,16 +102,24 @@ function getTotalDist() {
 	for (let i = 0; i < lines.length; i++) {
 		total += lines[i].getDist();
 	}
-	return getTotalDist();
+	return total;
 }
 
 function main() {
 	noStroke();
+	textStyle(NORMAL);
 	background('black');
 	fill('red');
 	textFont('input-serif, serif');
 	textSize(14);
 	text('press esc to reset', width / 2, height / 2 + 290);
+	textSize(20);
+	textStyle(BOLD);
+	text(
+		'Total Light Years Traveled: ' + floor(total) / 100 / 2,
+		width / 2,
+		30
+	);
 	for (let i = 0; i < stars.length; i++) {
 		stars[i].display();
 		stars[i].move();
@@ -127,12 +135,14 @@ function mouseClicked() {
 			lines.push(
 				new Line(positions[0], positions[1], positions[2], positions[3])
 			);
+			total = getTotalDist();
 		}
 		if (positions.length >= 4) {
 			positions.shift();
 			positions.shift();
 		}
 		positions.push(mouseX, mouseY);
+		console.log(total);
 	}
 }
 
