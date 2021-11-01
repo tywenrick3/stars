@@ -114,12 +114,6 @@ function main() {
 	textSize(14);
 	text('press esc to reset', width / 2, height / 2 + 290);
 	textSize(20);
-	textStyle(BOLD);
-	text(
-		'Total Light Years Traveled: ' + floor(total) / 100 / 2,
-		width / 2,
-		30
-	);
 	for (let i = 0; i < stars.length; i++) {
 		stars[i].display();
 		stars[i].move();
@@ -127,6 +121,12 @@ function main() {
 	for (let i = 0; i < lines.length; i++) {
 		lines[i].display();
 	}
+	fill('red');
+	text(
+		'Total Light Years Traveled: ' + floor(total) / 100 / 2,
+		width / 2,
+		30
+	);
 }
 
 function mouseClicked() {
