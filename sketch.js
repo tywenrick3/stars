@@ -122,11 +122,7 @@ function main() {
 		lines[i].display();
 	}
 	fill('red');
-	text(
-		'Total Light Years Traveled: ' + floor(total) / 100 / 2,
-		width / 2,
-		30
-	);
+	text('Light Years: ' + floor(total) / 100 / 2, width / 2, 30);
 }
 
 function mouseClicked() {
