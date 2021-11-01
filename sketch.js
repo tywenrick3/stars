@@ -2,6 +2,7 @@ let mode;
 let stars = [];
 let lines = [];
 let positions = [];
+let total;
 
 class Star {
 	constructor(
@@ -53,6 +54,11 @@ class Line {
 		stroke('red');
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
+
+	getDist() {
+		let res = dist(this.x1, this.y1, this.x2, this.y2);
+		return res;
+	}
 }
 
 //^^^^^Objects^^^^^
@@ -92,6 +98,13 @@ function start() {
 	text('press enter', width / 2, height / 2 + 250);
 }
 
+function getTotalDist() {
+	for (let i = 0; i < lines.length; i++) {
+		total += lines[i].getDist();
+	}
+	return getTotalDist();
+}
+
 function main() {
 	noStroke();
 	background('black');
@@ -119,8 +132,6 @@ function mouseClicked() {
 			positions.shift();
 			positions.shift();
 		}
-		console.log(positions.length);
-		console.log(positions);
 		positions.push(mouseX, mouseY);
 	}
 }
@@ -134,8 +145,6 @@ function keyPressed() {
 	}
 }
 
-function mousePressed() {}
-
 function reset() {
 	while (stars.length > 0) {
 		stars.pop();
@@ -147,6 +156,7 @@ function reset() {
 		lines.pop();
 	}
 	mode = 0;
+	total = 0;
 	background('black');
 	num_of_stars = floor(random(250, 350));
 	for (let i = 0; i < num_of_stars; i++) {
