@@ -142,7 +142,6 @@ function mouseClicked() {
 			positions.shift();
 		}
 		positions.push(mouseX, mouseY);
-		console.log(total);
 	}
 }
 
