@@ -11,7 +11,7 @@ class Star {
 		radius = floor(random(1, 9)),
 		speed = floor(random(2, 8)),
 		r = floor(random(200, 255)),
-		g = floor(random(200, 255)),
+		g = floor(random(200, 255)), // TODO: one color variable
 		b = floor(random(200, 255)),
 		shooting = floor(random(0, 100))
 	) {
@@ -36,8 +36,7 @@ class Star {
 	}
 
 	display() {
-		let c = color(this.r, this.b, this.g);
-		fill(c);
+		fill(color(this.r, this.b, this.g));
 		ellipse(this.xPos, this.yPos, this.radius);
 	}
 }
@@ -51,7 +50,7 @@ class Line {
 	}
 
 	display() {
-		stroke('red');
+		stroke('red'); // TODO: Line Color interactable?
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
 
@@ -70,13 +69,32 @@ function setup() {
 
 function draw() {
 	if (mode == 0) {
-		//startscreen
 		start();
 	}
 	if (mode == 1) {
-		//main
 		main();
 	}
+	if (mode == 2) {
+		helpMenu();
+	}
+}
+
+function helpMenu() {
+	background('black');
+	textAlign(CENTER);
+	fill('white');
+	textSize(72);
+	textFont('adage-script-jf, sans-serif');
+	text('Help', width / 2, height / 2);
+	textSize(22);
+	textFont('input-serif, serif');
+	text(
+		'double-click stars to draw a constellation!',
+		width / 2,
+		height / 2 + 50
+	);
+	textSize(18);
+	text('press esc', width / 2, height / 2 + 250);
 }
 
 function start() {
@@ -86,58 +104,53 @@ function start() {
 	textSize(72);
 	textFont('adage-script-jf, sans-serif');
 	text('stars', width / 2, height / 2);
-	textSize(22);
-	textFont('input-serif, serif');
-	text(
-		'double-click stars to draw a constellation!',
-		width / 2,
-		height / 2 + 50
-	);
-	textFont('input-serif, serif');
 	textSize(18);
 	text('press enter', width / 2, height / 2 + 250);
 }
 
-function getTotalDist() {
-	for (let i = 0; i < lines.length; i++) {
-		total += lines[i].getDist();
-	}
-	return total;
-}
-
 function main() {
+	background('black');
 	noStroke();
 	textStyle(NORMAL);
-	background('black');
 	fill('red');
 	textFont('input-serif, serif');
 	textSize(14);
 	text('press esc to reset', width / 2, height / 2 + 290);
 	textSize(20);
+
 	for (let i = 0; i < stars.length; i++) {
 		stars[i].display();
 		stars[i].move();
 	}
+
 	for (let i = 0; i < lines.length; i++) {
 		lines[i].display();
 	}
+
 	fill('red');
 	text('Light Years: ' + floor(total) / 100 / 2, width / 2, 30);
 }
 
 function mouseClicked() {
 	if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0) {
-		if (positions.length == 4) {
-			lines.push(
-				new Line(positions[0], positions[1], positions[2], positions[3])
-			);
-			total = getTotalDist();
-		}
 		if (positions.length >= 4) {
 			positions.shift();
 			positions.shift();
 		}
+
 		positions.push(mouseX, mouseY);
+
+		if (positions.length == 4) {
+			lines.push(
+				new Line(positions[0], positions[1], positions[2], positions[3])
+			);
+			total += lines[lines.length - 1].getDist();
+		}
+
+		// Debugging Logs below:
+		// console.log('Positions: ', positions);
+		// console.log('Lines: ', lines);
+		// console.log('Total: ', total);
 	}
 }
 
@@ -145,8 +158,11 @@ function keyPressed() {
 	if (keyCode == 13 && mode == 0) {
 		mode = 1;
 	}
-	if (keyCode == 27 && mode == 1) {
+	if (keyCode == 27 && (mode == 1 || mode == 2)) {
 		reset();
+	}
+	if (keyCode == 72 && mode == 0) {
+		mode = 2;
 	}
 }
 
@@ -160,9 +176,9 @@ function reset() {
 	while (lines.length > 0) {
 		lines.pop();
 	}
+	background('black');
 	mode = 0;
 	total = 0;
-	background('black');
 	num_of_stars = floor(random(250, 350));
 	for (let i = 0; i < num_of_stars; i++) {
 		stars.push(new Star());
