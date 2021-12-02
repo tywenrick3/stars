@@ -50,7 +50,8 @@ class Line {
 	}
 
 	display() {
-		stroke('red'); // TODO: Line Color interactable?
+		stroke('blue'); // TODO: Line Color interactable?
+		strokeWeight(2);
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
 
@@ -84,10 +85,10 @@ function helpMenu() {
 	textAlign(CENTER);
 	fill('white');
 	textSize(72);
-	textFont('adage-script-jf, sans-serif');
+	textFont('semplicitapro, sans-serif');
 	text('Help', width / 2, height / 2);
 	textSize(22);
-	textFont('input-serif, serif');
+	textFont('semplicitapro, sans-serif');
 	text(
 		'double-click stars to draw a constellation!',
 		width / 2,
@@ -99,10 +100,11 @@ function helpMenu() {
 
 function start() {
 	background('black');
+	noStroke();
 	textAlign(CENTER);
 	fill('white');
 	textSize(72);
-	textFont('adage-script-jf, sans-serif');
+	textFont('nasalization, sans-serif');
 	text('stars', width / 2, height / 2);
 	textSize(18);
 	text('press enter', width / 2, height / 2 + 250);
@@ -112,8 +114,8 @@ function main() {
 	background('black');
 	noStroke();
 	textStyle(NORMAL);
-	fill('red');
-	textFont('input-serif, serif');
+	fill('blue');
+	textFont('semplicitapro, sans-serif');
 	textSize(14);
 	text('press esc to reset', width / 2, height / 2 + 290);
 	textSize(20);
@@ -127,7 +129,8 @@ function main() {
 		lines[i].display();
 	}
 
-	fill('red');
+	fill('blue');
+	noStroke();
 	text('Light Years: ' + floor(total) / 100 / 2, width / 2, 30);
 }
 
