@@ -50,7 +50,7 @@ class Line {
 	}
 
 	display() {
-		stroke('blue'); // TODO: Line Color interactable?
+		stroke('#ba1e68'); // TODO: Line Color interactable?
 		strokeWeight(2);
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
@@ -99,10 +99,10 @@ function helpMenu() {
 }
 
 function start() {
-	background('black');
+	background('#0c164f');
 	noStroke();
 	textAlign(CENTER);
-	fill('white');
+	fill('#ba1e68');
 	textSize(72);
 	textFont('nasalization, sans-serif');
 	text('stars', width / 2, height / 2);
@@ -116,8 +116,6 @@ function main() {
 	textStyle(NORMAL);
 	fill('blue');
 	textFont('semplicitapro, sans-serif');
-	textSize(14);
-	text('press esc to reset', width / 2, height / 2 + 290);
 	textSize(20);
 
 	for (let i = 0; i < stars.length; i++) {
@@ -129,9 +127,11 @@ function main() {
 		lines[i].display();
 	}
 
-	fill('blue');
+	fill('#5643fd ');
 	noStroke();
 	text('Light Years: ' + floor(total) / 100 / 2, width / 2, 30);
+	textSize(18);
+	text('press esc to reset', width / 2, height / 2 + 290);
 }
 
 function mouseClicked() {
@@ -151,9 +151,10 @@ function mouseClicked() {
 		}
 
 		// Debugging Logs below:
-		// console.log('Positions: ', positions);
-		// console.log('Lines: ', lines);
-		// console.log('Total: ', total);
+		console.log('Positions: ', positions);
+		console.log('Lines: ', lines);
+		console.log('Total: ', total);
+		console.log('------------');
 	}
 }
 
