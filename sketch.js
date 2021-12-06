@@ -15,6 +15,8 @@ const color_pal = [
 	'black',
 ];
 
+let lineColor = color_pal[3];
+
 class Star {
 	constructor(
 		xPos = floor(random(0, width)),
@@ -36,6 +38,7 @@ class Star {
 		this.b = b;
 		this.g = g;
 		this.c = c;
+		this.diagonal = floor(random(0, 10));
 		let temp = random(0, 10);
 		if (temp < 5) {
 			this.speed *= -1;
@@ -43,8 +46,11 @@ class Star {
 	}
 
 	move() {
-		if (this.shooting >= 97) {
+		if (this.shooting >= 98) {
 			this.xPos += this.speed;
+			if (this.diagonal >= 9) {
+				this.yPos += this.speed;
+			}
 		}
 	}
 
@@ -63,7 +69,7 @@ class Line {
 	}
 
 	display() {
-		stroke('#ba1e68'); // TODO: Line Color interactable?
+		stroke(lineColor); // TODO: Line Color interactable?
 		strokeWeight(2);
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
@@ -103,11 +109,7 @@ function helpMenu() {
 	fill(color_pal[5]);
 	textSize(22);
 	textFont('semplicitapro, sans-serif');
-	text(
-		'Double-click stars to draw a constellation!',
-		width / 2,
-		height / 2 - 50
-	);
+	text('Click stars to draw a constellation!', width / 2, height / 2 - 50);
 	text(
 		'Press space to change the color of your lines!',
 		width / 2,
@@ -163,16 +165,6 @@ function main() {
 	text('press esc to reset', 20, height / 2 + 290);
 }
 
-// xPos = floor(random(0, width)),
-// 		yPos = floor(random(0, height)),
-// 		radius = floor(random(1, 9)),
-// 		speed = floor(random(2, 8)),
-// 		r = floor(random(200, 255)),
-// 		g = floor(random(200, 255)), // TODO: one color variable
-// 		b = floor(random(200, 255)),
-// 		shooting = floor(random(0, 100)),
-// 		c = floor(random(200, 255))
-
 function mouseClicked() {
 	if (mouseX <= width && mouseX >= 0 && mouseY <= height && mouseY >= 0) {
 		numshooting = floor(random(3, 10));
@@ -213,6 +205,7 @@ function mouseClicked() {
 }
 
 function keyPressed() {
+	// Enter
 	if (keyCode == 13 && mode == 0) {
 		while (stars.length > 0) {
 			stars.pop();
@@ -223,11 +216,24 @@ function keyPressed() {
 		}
 		mode = 1;
 	}
+	// Esc
 	if (keyCode == 27 && (mode == 1 || mode == 2)) {
 		reset();
 	}
+	// H
 	if (keyCode == 72 && mode == 0) {
 		mode = 2;
+	}
+	// Space
+	if (keyCode == 32 && mode == 1) {
+		for (let i = 0; i < color_pal.length; i++) {
+			if (lineColor == color_pal[i]) {
+				lineColor = color_pal[i + 1];
+			}
+			if (lineColor == color_pal[5]) {
+				lineColor = color_pal[0];
+			}
+		}
 	}
 }
 
@@ -242,6 +248,7 @@ function reset() {
 		lines.pop();
 	}
 	background('black');
+	lineColor = color_pal[3];
 	mode = 0;
 	total = 0;
 	num_of_stars = floor(random(250, 350));
