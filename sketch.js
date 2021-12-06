@@ -3,6 +3,7 @@ let stars = [];
 let lines = [];
 let positions = [];
 let total;
+let bin = 0;
 // dark purple, dark blue, pink-red, light-blue,
 // light-purple, white
 const color_pal = [
@@ -13,6 +14,7 @@ const color_pal = [
 	'#7649fe',
 	'#fcfbfe',
 	'black',
+	'#FFCD01',
 ];
 
 let lineColor = color_pal[3];
@@ -226,13 +228,16 @@ function keyPressed() {
 	}
 	// Space
 	if (keyCode == 32 && mode == 1) {
-		for (let i = 0; i < color_pal.length; i++) {
-			if (lineColor == color_pal[i]) {
-				lineColor = color_pal[i + 1];
-			}
-			if (lineColor == color_pal[5]) {
-				lineColor = color_pal[0];
-			}
+		// Color Switching
+		if (bin == 0) {
+			lineColor = color_pal[2];
+			bin = 1;
+		} else if (bin == 1) {
+			lineColor = color_pal[3];
+			bin = 2;
+		} else if (bin == 2) {
+			lineColor = color_pal[7];
+			bin = 0;
 		}
 	}
 }
