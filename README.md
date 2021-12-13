@@ -1,6 +1,6 @@
 # Welcome to stars
 
-## stars is a dynamic, creative, constellation experiance
+## stars is a dynamic, creative, constellation making experiance
 
 ## Technolgies
 
