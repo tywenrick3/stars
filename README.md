@@ -13,4 +13,3 @@ The web application uses netfliy for deployment and p5.js
 ## Images
 ![Screenshot 2021-12-12 184625](https://user-images.githubusercontent.com/60354054/145738824-fbabc73e-51ec-4543-89f9-6dceb23568ac.png)
 
-![Screenshot 2021-12-12 124417](https://user-images.githubusercontent.com/60354054/145738829-402d46dd-5a63-40a2-abb7-e4ba921b0a66.png)
