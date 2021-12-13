@@ -3,7 +3,9 @@ let stars = [];
 let lines = [];
 let positions = [];
 let total;
-let bin = 0;
+let deg = 315;
+let timer = 3000;
+let next = timer;
 // dark purple, dark blue, pink-red, light-blue,
 // light-purple, white
 const color_pal = [
@@ -48,6 +50,16 @@ class Star {
 	}
 
 	move() {
+		if (mode == 0) {
+			if (millis() > next) {
+				this.shooting = 99;
+			}
+		} else {
+			if (millis() > next) {
+				this.shooting = 99;
+				next = millis() + timer;
+			}
+		}
 		if (this.shooting >= 98) {
 			this.xPos += this.speed;
 			if (this.diagonal >= 9) {
@@ -62,16 +74,29 @@ class Star {
 	}
 }
 
+// TODO: Integrate Light years in a more creative way, color change as total >>>?
+
 class Line {
 	constructor(x1, y1, x2, y2) {
 		this.x1 = x1;
 		this.x2 = x2;
 		this.y1 = y1;
 		this.y2 = y2;
+		this.currentTotal = total;
+		this.diff = total - this.currentTotal;
 	}
 
 	display() {
-		stroke(lineColor); // TODO: Line Color interactable?
+		colorMode(HSB);
+		if (this.currentTotal != total) {
+			if (deg < 0) {
+				deg = 360;
+			} else {
+				deg = deg - 2;
+			}
+			this.currentTotal = total;
+		}
+		stroke(deg, 100, 100, 1);
 		strokeWeight(2);
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
@@ -112,11 +137,7 @@ function helpMenu() {
 	textSize(22);
 	textFont('semplicitapro, sans-serif');
 	text('Click stars to draw a constellation!', width / 2, height / 2 - 50);
-	text(
-		'Press space to change the color of your lines!',
-		width / 2,
-		height / 2
-	);
+	text('Line Color depends on your total distance!', width / 2, height / 2);
 	text(
 		'Total distance of your constellation is tracked!',
 		width / 2,
@@ -158,10 +179,9 @@ function main() {
 	for (let i = 0; i < lines.length; i++) {
 		lines[i].display();
 	}
-
-	fill('#ba1e68');
 	noStroke();
 	textAlign(LEFT);
+	fill(color_pal[3]);
 	text('Light Years: ' + floor(total) / 100 / 2, 20, 30);
 	textSize(18);
 	text('press esc to reset', 20, height / 2 + 290);
@@ -226,20 +246,6 @@ function keyPressed() {
 	if (keyCode == 72 && mode == 0) {
 		mode = 2;
 	}
-	// Space
-	if (keyCode == 32 && mode == 1) {
-		// Color Switching
-		if (bin == 0) {
-			lineColor = color_pal[2];
-			bin = 1;
-		} else if (bin == 1) {
-			lineColor = color_pal[3];
-			bin = 2;
-		} else if (bin == 2) {
-			lineColor = color_pal[7];
-			bin = 0;
-		}
-	}
 }
 
 function reset() {
@@ -256,6 +262,7 @@ function reset() {
 	lineColor = color_pal[3];
 	mode = 0;
 	total = 0;
+	deg = 315;
 	num_of_stars = floor(random(250, 350));
 	for (let i = 0; i < num_of_stars; i++) {
 		stars.push(new Star());
